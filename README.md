@@ -1,2 +1,6 @@
-# techtalks
-Repositório utilizado para organizar techtalks, melhor descrição a caminho  
+# Techtalks 🤓
+
+## Agendamento das próximas talks
+
+| Tema | Quem | Quando |
+|---|---|---|
