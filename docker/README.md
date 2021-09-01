@@ -39,5 +39,88 @@ A imagem abaixo ilustra melhor a diferença entre as duas infraestruturas:
 ![image](https://user-images.githubusercontent.com/8127577/131718760-89d20221-865a-4d82-bad1-07c93b49314b.png)
 
 
-
 ## Comandos Básicos
+
+### Containers
+
+- **Listar containers**: Lista todos os container em execução
+ 
+    `docker container ls` 
+    
+    É possível usar o parâmetro `-a` para listar todos os containers existentes independente de seu status (running, stopped, exited, etc)
+    
+- **Criar container**: Cria e executa um container usando uma imagem (receita de bolo) como referência
+    
+    `docker container run nginx`
+    
+    Recomendado sempre utilizar os seguintes parâmetros do comando `docker container run` ao criar containers:
+    
+    - `-d`: Irá executar o container em modo daemon, ou seja, em um processo em background, não bloqueando o terminal
+    - `--name`: Adiciona um nome ao container para facilitar sua identificação, em vez de deixar o Docker gerar um nome aleatório
+    
+- **Parar container**: Para a execução de um container
+
+    `docker container stop meu_nginx`
+    
+- **Iniciar container**: Inicia um container parado
+
+    `docker container start meu_nginx`
+    
+- **Remover container**: Remove um container existente
+
+    `docker container rm meu_nginx`
+    
+    **Atenção**: Caso o container esteja em execução é possível usar o parâmetro `-f` (force) para forçar a parada do container antes de removê-lo, caso contrário
+    será necessário parar o container antes.
+    
+    
+### Imagens
+
+- **Listar imagens**: Lista todas as imagens baixadas e armazenadas no repositório local
+
+    `docker image ls`
+    
+- **Baixar imagem**: Baixa uma imagem do repositório remoto para o local
+
+  `docker image pull nginx`
+  
+- **Remover imagem**: Remove uma imagem do repositório local
+
+    `docker image rm nginx`
+    
+    **Atenção**: Caso existam containers ou outras imagens relacionados a essa imagem é possível usar o parâmetro `-f` (force) para forçar a remoção dos containers e imagens
+    relacionados antes de removê-la, caso contrário deverá executar todos os passos de remoção dos containers e imagens relacionadas antes.
+    
+    
+### Volumes
+
+- **Listar volumes**: Lista todos os volumes
+
+    `docker volume ls`
+    
+- **Criar volume**: Cria um volume a ser mapeado em containers
+
+    `docker volume create meu_volume`
+    
+- **Remover volume**: Remove um volume existente
+
+    `docker volume rm meu_volume`
+    
+    
+### Network
+
+- **Lista networks**: Lista todas as networks
+
+    `docker network ls`
+    
+- **Criar network**: Cria uma nova network
+
+    `docker network create minha_network`
+    
+    É possível usar o parâmetro `-d` para indicar o driver que será usado nessa network (mais informações na sessão [Network](#network))
+    
+- **Remover network**: Remove uma network
+
+    `docker network rm minha_network`
+    
+    **Atenção**: Caso existam containers atrelados a essa network não será possível removê-la até que os container sejam movidos para outra network ou removidos
