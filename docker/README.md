@@ -4,7 +4,7 @@
 
 - [Conceitos](#conceitos)
 
-- [Comandos básicos](#comandos-básicos)
+- [Comandos Básicos](#comandos-básicos)
 
 ## Conceitos
 
@@ -37,5 +37,7 @@ de gerenciamento e execução de containers.
 A imagem abaixo ilustra melhor a diferença entre as duas infraestruturas:
 
 ![image](https://user-images.githubusercontent.com/8127577/131718760-89d20221-865a-4d82-bad1-07c93b49314b.png)
+
+
 
 ## Comandos Básicos
