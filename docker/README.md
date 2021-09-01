@@ -2,9 +2,9 @@
 
 ## Índice
 
-[Conceitos](#conceitos)
+- [Conceitos](#conceitos)
 
-[Comandos básicos](#comandos-básicos)
+- [Comandos básicos](#comandos-básicos)
 
 ## Conceitos
 
