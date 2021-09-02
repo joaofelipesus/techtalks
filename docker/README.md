@@ -61,6 +61,10 @@ A imagem abaixo ilustra melhor a diferença entre as duas infraestruturas:
     
     - `-d`: Irá executar o container em modo daemon, ou seja, em um processo em background, não bloqueando o terminal
     - `--name`: Adiciona um nome ao container para facilitar sua identificação, em vez de deixar o Docker gerar um nome aleatório
+
+    É possível também utilizar o parâmetro `--rm` para indicar que deseja que o container seja removido ao final da execução do mesmo, ou seja, ele vai existir enquanto o seu processo principal esteja sendo executado, assim que esse processo finalizar o container também será removido.
+    
+    `docker container run --rm hello-world`
     
 - **Parar container**: Para a execução de um container
 
@@ -128,6 +132,19 @@ A imagem abaixo ilustra melhor a diferença entre as duas infraestruturas:
     `docker network rm minha_network`
     
     **Atenção**: Caso existam containers atrelados a essa network não será possível removê-la até que os container sejam movidos para outra network ou removidos
+    
+
+### Execute
+
+- **Executar comando no container**: Executa um comando específico dentro de um container em execução
+
+   `docker container exec meu_nginx echo "TESTE"`
+   
+   É possível executar um terminal dentro do container permitindo que acesse o contexto interno do container. 
+   Para tal é necessário usar os parâmetros `-it` para executar o comando em modo iterativo dentro do container e passar como parâmetro o comando de execução do terminal, 
+   que normalmente são `bash` ou `sh` dependendo da distribuição linux a qual o container é baseado
+   
+   `docker container exec -it meu_nginx bash`
     
     
 ## Docker Hub
