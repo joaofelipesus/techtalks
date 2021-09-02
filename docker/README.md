@@ -6,6 +6,8 @@
 
 - [Comandos Básicos](#comandos-básicos)
 
+- [Docker Hub](#docker-hub)
+
 ## Conceitos
 
 - **Container**: é uma metodologia utilizada para empacotar aplicações para que possam ser executadas/disponibilizadas de maneira isolada e eficiente no 
@@ -124,3 +126,15 @@ A imagem abaixo ilustra melhor a diferença entre as duas infraestruturas:
     `docker network rm minha_network`
     
     **Atenção**: Caso existam containers atrelados a essa network não será possível removê-la até que os container sejam movidos para outra network ou removidos
+    
+    
+## Docker Hub
+ 
+Docker Hub é o repositório central e público de imagens do Docker. Toda vez que algum comando do Docker necessitar de uma imagem, o Docker CLI irá inicialmente 
+procurar a imagem no repositório local, caso não encontre, irá fazer um pull (baixar) a imagem do Docker Hub para o repositório local, para só então usar a imagem
+
+É possível também criar suas próprias imagens personalizadas e publica-las no Docker Hub. Para isso é necessário seguir os passos:
+ 1. Criar uma conta grátis no Docker Hub
+ 2. Logar no Docker Hub pelo CLI local usando o comando `docker login`, passar as credenciais da sua conta
+ 3. Taguear sua imagem com seu nome de usuário com o comando `docker image tag minha_imagem:1.0 meu_username/minha_imagem:1.0` 
+ 4. Executar o push (upload) da sua imagem personalizada na sua conta usando o comando `docker image push meu_username/minha_imagem:1.0`
