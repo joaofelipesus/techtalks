@@ -10,6 +10,8 @@
 
 - [Volumes](#volumes)
 
+- [Variáveis de Ambiente](#variáveis-de-ambiente)
+
 ## Conceitos
 
 - **Container**: é uma metodologia utilizada para empacotar aplicações para que possam ser executadas/disponibilizadas de maneira isolada e eficiente no 
@@ -171,10 +173,36 @@ Como informado nas sessões anteriores, um dos recursos que os containers isolam
  2. Criar um volume nomeado e utiliza-lo para efetuar o mapeamento usando os comandos:
 
    ```
-   docker volume create meu_volume;
-   docker run --name some-nginx -v meu_volume:/usr/share/nginx/html:ro -d nginx;
+   docker volume create meu_volume
+   docker run --name some-nginx -v meu_volume:/usr/share/nginx/html:ro -d nginx
    ```
    
 Nos dois exemplos está sendo usado o modificador de acessibilidade `:ro` que indica que esse mapeamento será read-only, ou seja, o container não terá permissão para modificar o conteúdo do mapeamento, somente o host tem o controle. Para que seja possível essa escrita deve-se remover o modificador `-v meu_volume:/usr/share/nginx/html`, com isso, tanto o container quanto o host tem acesso total ao conteúdo do volume
 
 **Atenção**: Ao mapear um volume no container, o Docker irá sobrescrever o conteúdo original da pasta ou arquivo mapeado do container com o mapeado no host, portanto, deve-se tomar cuidado com a sobrescrita de arquivos de configuração e de mapeamentos dentro do container o que pode causar o seu mau funcionamento.
+
+
+## Variáveis de Ambiente
+
+É possível criar variáveis de ambiente dentro dos container no momento da criação dos mesmos usando o parâmetro `-e`
+
+  ```
+  docker container run -d -e MINHA_VARIAVEL=teste --name meu_nginx nginx
+  docker container exec meu_nginx bash -c "echo $MINHA_VARIAVEL"
+  ```
+  
+Também é possível usar um arquivo no formato chave-valor contendo todas as variáveis de ambiente que serão criadas no container e seus valores
+
+  *variaveis.txt*
+  ```
+  VAR1=teste1
+  VAR2=teste2
+  ```
+  
+  ```
+  docker container run -d --env-file ./variaveis.txt --name meu_nginx nginx
+  docker container exec meu_nginx bash -c "echo $VAR1; echo $VAR2"
+  ```
+  
+Pode-se também combinar as duas opções extendendo a criação de variáveis de ambiente de um arquivo com variáveis adicionais em tempo de criação do container.
+Usando variáveis de ambiente deixa-se a imagem do container parametrizável e independente para qualquer ambiente que seja executado, aderindo assim ao conceito "code once, run anywhere"
