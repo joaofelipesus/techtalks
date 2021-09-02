@@ -8,6 +8,8 @@
 
 - [Docker Hub](#docker-hub)
 
+- [Volumes](#volumes)
+
 ## Conceitos
 
 - **Container**: é uma metodologia utilizada para empacotar aplicações para que possam ser executadas/disponibilizadas de maneira isolada e eficiente no 
@@ -138,3 +140,24 @@ procurar a imagem no repositório local, caso não encontre, irá fazer um pull 
  2. Logar no Docker Hub pelo CLI local usando o comando `docker login`, passar as credenciais da sua conta
  3. Taguear sua imagem com seu nome de usuário com o comando `docker image tag minha_imagem:1.0 meu_username/minha_imagem:1.0` 
  4. Executar o push (upload) da sua imagem personalizada na sua conta usando o comando `docker image push meu_username/minha_imagem:1.0`
+
+
+## Volumes
+
+Os volumes são utilizados quando se quer mapear uma pasta ou arquivo do container para o host com intuito de manter os dados salvos mesmo que o container seja removido.
+Como informado nas sessões anteriores, um dos recursos que os containers isolam do host é o filesystem, ou seja, as estruturas de pastas e arquivos do container existem somente dentro dele, o host não tem acesso. Para que seja possível o host ter acesso a esses arquivos, ou que dados de um container seja compartilhado com outros containers, ou ainda que os dados de um container sejam salvos no disco do host para não serem perdidos após o container ser removido, existem duas opções de mapeamento no momento da criação do container usando o parâmetro `-v`:
+ 
+ 1. Efetuar o mapeamento de uma pasta do host com uma pasta do container diretamente usando o comando:
+  
+   `docker container run --name some-nginx -v /alguma/pasta/do/host:/usr/share/nginx/html:ro -d nginx`
+   
+ 2. Criar um volume nomeado e utiliza-lo para efetuar o mapeamento usando os comandos:
+
+   ```
+   docker volume create meu_volume;
+   docker run --name some-nginx -v meu_volume:/usr/share/nginx/html:ro -d nginx;
+   ```
+   
+Nos dois exemplos está sendo usado o modificador de acessibilidade `:ro` que indica que esse mapeamento será read-only, ou seja, o container não terá permissão para modificar o conteúdo do mapeamento, somente o host tem o controle. Para que seja possível essa escrita deve-se remover o modificador `-v meu_volume:/usr/share/nginx/html`, com isso, tanto o container quanto o host tem acesso total ao conteúdo do volume
+
+**Atenção**: Ao mapear um volume no container, o Docker irá sobrescrever o conteúdo original da pasta ou arquivo mapeado do container com o mapeado no host, portanto, deve-se tomar cuidado com a sobrescrita de arquivos de configuração e de mapeamentos dentro do container o que pode causar o seu mau funcionamento.
