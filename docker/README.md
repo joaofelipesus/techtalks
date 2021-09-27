@@ -12,6 +12,12 @@
 
 - [Variáveis de Ambiente](#variáveis-de-ambiente)
 
+- [Network](#network)
+
+- [Dockerfile](#dockerfile)
+
+
+
 ## Conceitos
 
 - **Container**: é uma metodologia utilizada para empacotar aplicações para que possam ser executadas/disponibilizadas de maneira isolada e eficiente no 
@@ -206,3 +212,70 @@ Também é possível usar um arquivo no formato chave-valor contendo todas as va
   
 Pode-se também combinar as duas opções extendendo a criação de variáveis de ambiente de um arquivo com variáveis adicionais em tempo de criação do container.
 Usando variáveis de ambiente deixa-se a imagem do container parametrizável e independente para qualquer ambiente que seja executado, aderindo assim ao conceito "code once, run anywhere"
+
+
+## Network
+
+Docker faz o isolamento da rede interna dos containers com a rede externa do host, ou seja, ele cria um rede virtual com faixas de IPs específicas.
+
+Ao instalar o Docker são criadas automaticamente 3 tipos de networks: bridge, host, none.
+
+- Bridge: esse tipo de interface de rede isola a rede virtual dos containers da rede do host, no entanto, é possível cria um "ponte" entre os processos rodando nos containers e a rede do host usando as configurações de bind de portas. Essa é a interface padrão que o Docker usa para criar os containers.
+- Host: nesse tipo de iterface de rede os containers usam a rede do host para rodar seus processos e fazer bind das portas, ou seja, não há isolamento entre a rede do container e a rede do host
+- None: esse tipo de interface é usado quando não se deseja usar rede nos containers
+
+É possível criar novas rede virtuais baseadas nesses 3 tipos de interfaces, criando assim uma faixa de IP para cada grupo de containers, podendo, portanto, isolar ambientes por networks, como dev, qa, uat, stage, prod, etc
+
+Para criar uma newtork é possível usar o seguinte comando:
+   
+   `docker network create minha_network`
+   
+Para especificar uma network ao criar um container é possível usar o seguinte parâmetro:
+
+   `docker container run -d --network minha_network --name meu_nginx nginx`
+   
+
+## Dockerfile
+
+Dockerfile é um arquivo usado pelo Docker como uma receita para criar uma imagem que posteriormente irá gerar containers.
+Nesse arquivo é possível organizar várias configurações e comandos que serão executados toda vez que criar um container.
+O arquivo sempre iniciar com o comando FROM que indica qual á a imagem base que será usada para criação da sua imagem.
+
+Os camandos mais comuns utilizados são os seguintes:
+
+- FROM: Indica qual a imagem base que será utilizada
+
+- RUN: Usado para executar um comando na imagem antes de subir o container
+
+- CMD: Usado para executar processos dentro do container
+
+- EXPOSE: Portas de processos que rodam dentro do container que podem ser expostas para o host
+
+- ENV: Usado para configurar variáveis de ambiente dentro do container
+
+- COPY: Usado para copiar arquivos e diretórios do host para a imagem
+
+- ADD: Também é usado para copiar arquivos e diretórios, porém, é possível usar URLs na origem, bem como descompactar arquivos
+
+- ENTRYPOINT: Comando executado no container que será considerado o processo principal do mesmo, ou seja, caso esse processo seja interrompido o container é automaticamente terminado.
+
+- VOLUME: Usado para criar volumes dentro do container que podem ser mapeados para o host
+
+- WORKDIR: Usado para indicar a pasta principal que os comandos serão executados dentro da imagem
+
+- ARG: Usado para indicar argumentos que podem ser passados no momento da criação da imagem
+
+Exemplo de um Dockerfile:
+
+   ```bash
+   FROM node:12-alpine
+   RUN apk add --no-cache python g++ make
+   WORKDIR /app
+   COPY . .
+   RUN yarn install --production
+   CMD ["node", "src/index.js"]
+   ```
+   
+Para se criar uma imagem baseado nesse Dockerfile usa-se o seguinte comando:
+
+`docker image build -t minha_imagem:v1 .`
