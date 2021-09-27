@@ -279,3 +279,5 @@ Exemplo de um Dockerfile:
 Para se criar uma imagem baseado nesse Dockerfile usa-se o seguinte comando:
 
 `docker image build -t minha_imagem:v1 .`
+
+Referência sobre boas práticas de criação do Dockerfile: https://docs.docker.com/develop/develop-images/dockerfile_best-practices/
