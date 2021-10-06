@@ -16,6 +16,8 @@
 
 - [Dockerfile](#dockerfile)
 
+- [Extras](#extras)
+
 
 
 ## Conceitos
@@ -281,3 +283,32 @@ Para se criar uma imagem baseado nesse Dockerfile usa-se o seguinte comando:
 `docker image build -t minha_imagem:v1 .`
 
 Referência sobre boas práticas de criação do Dockerfile: https://docs.docker.com/develop/develop-images/dockerfile_best-practices/
+
+
+## Extras
+
+### Snyk
+
+Ferramenta usada para validar vulnerabilidades nas imagens geradas pelo docker
+
+https://snyk.io/
+
+https://docs.snyk.io/products/snyk-container/snyk-cli-for-container-security
+
+### Portainer
+
+Ferramenta que facilita a administração de instalações docker de forma visual acessada pelo navegador. O portainer roda como um container dentro do docker, tendo acesso ao docker daemon externo ou remoto
+
+https://www.portainer.io/
+
+https://docs.portainer.io/v/ce-2.9/start/install/server/docker/linux
+
+### Jenkins
+
+É possível usar o Jenkins dentro de um container e criar pipelines que gerenciem os container do docker daemon externo.
+
+https://www.jenkins.io/doc/book/installing/docker/
+
+https://medium.com/@schogini/running-docker-inside-and-outside-of-a-jenkins-container-along-with-docker-compose-a-tiny-c908c21557aa
+
+
