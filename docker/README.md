@@ -312,3 +312,14 @@ https://www.jenkins.io/doc/book/installing/docker/
 https://medium.com/@schogini/running-docker-inside-and-outside-of-a-jenkins-container-along-with-docker-compose-a-tiny-c908c21557aa
 
 
+## Referências
+
+https://docs.docker.com/get-started/
+
+https://docs.docker.com/engine/reference/builder/
+
+https://docs.docker.com/compose/
+
+https://github.com/badtuxx/DescomplicandoDocker
+
+https://livro.descomplicandodocker.com.br/chapters/chapter_00.html
